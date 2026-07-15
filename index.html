@@ -112,7 +112,7 @@ CsapatNapló
 
 <select id="nev">
 
-<option>Mark</option>
+<option>Márk</option>
 <option>Zoli</option>
 <option>Bori</option>
 <option>Karesz</option>
@@ -170,23 +170,21 @@ function mentes(){
     };
 
     fetch(googleAppScriptUrl,{
-        method:"POST",
-        body:JSON.stringify(adat)
+    method:"POST",
+    body:new URLSearchParams({
+        nev: nev,
+        datum: datum,
+        jegyzet: jegyzet
     })
-    .then(()=>{
-
-        alert("✅ Sikeresen elmentve!");
-
-        document.getElementById("jegyzet").value="";
-
-    })
-    .catch(err=>{
-
-        alert("Hiba történt!");
-
-        console.log(err);
-
-    });
+})
+.then(() => {
+    alert("✅ Sikeresen elmentve!");
+    document.getElementById("jegyzet").value="";
+})
+.catch(err => {
+    alert("Hiba történt!");
+    console.log(err);
+});
 
 }
 
