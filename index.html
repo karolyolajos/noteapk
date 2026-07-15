@@ -146,23 +146,44 @@ CsapatNapló v1.0
 
 document.getElementById("datum").valueAsDate=new Date();
 
+const googleAppScriptUrl =
+"https://script.google.com/macros/s/AKfycbwT73xvF4vRHxPLAdxTP74_hOMn6BOtvRKtaRTKO_7LKASMwYDRvEg9XNB9QsJOABfv/exec";
+
 function mentes(){
 
-let nev=document.getElementById("nev").value;
+    const nev=document.getElementById("nev").value;
+    const datum=document.getElementById("datum").value;
+    const jegyzet=document.getElementById("jegyzet").value;
 
-let datum=document.getElementById("datum").value;
+    if(jegyzet.trim()==""){
+        alert("Írj feljegyzést!");
+        return;
+    }
 
-let jegyzet=document.getElementById("jegyzet").value;
+    const adat={
+        nev:nev,
+        datum:datum,
+        jegyzet:jegyzet
+    };
 
-alert(
+    fetch(googleAppScriptUrl,{
+        method:"POST",
+        body:JSON.stringify(adat)
+    })
+    .then(()=>{
 
-"Név: "+nev+
+        alert("✅ Sikeresen elmentve!");
 
-"\nDátum: "+datum+
+        document.getElementById("jegyzet").value="";
 
-"\n\n"+jegyzet
+    })
+    .catch(err=>{
 
-);
+        alert("Hiba történt!");
+
+        console.log(err);
+
+    });
 
 }
 
